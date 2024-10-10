@@ -1,7 +1,14 @@
 <template>
   <div class="home">
-    <h1>Welcome to Keel</h1>
-    <p>This is the home page.</p>
+    <el-card class="box-card">
+      <template #header>
+        <div class="card-header">
+          <h1>Welcome to Keel</h1>
+        </div>
+      </template>
+      <p>This is the home page.</p>
+      <el-button type="primary">Element Plus Button</el-button>
+    </el-card>
   </div>
 </template>
 
@@ -15,7 +22,19 @@ export default defineComponent({
 
 <style scoped>
 .home {
-  text-align: center;
-  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.box-card {
+  width: 480px;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
