@@ -6,18 +6,23 @@
           <h1>Welcome to Keel</h1>
         </div>
       </template>
-      <p>This is the home page.</p>
-      <el-button type="primary">Element Plus Button</el-button>
+      <p>Welcome, {{ userStore.username }}!</p>
+      <el-button type="primary" @click="handleLogout">Logout</el-button>
     </el-card>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script lang="ts" setup>
+import { useRouter } from "vue-router";
+import { useUserStore } from "@/stores/user";
 
-export default defineComponent({
-  name: "Home",
-});
+const router = useRouter();
+const userStore = useUserStore();
+
+const handleLogout = () => {
+  userStore.logout();
+  router.push("/login");
+};
 </script>
 
 <style scoped>

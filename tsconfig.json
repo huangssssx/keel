@@ -9,6 +9,7 @@
     "paths": {
       "@/*": ["src/*"]
     },
-    "lib": ["ES2020", "DOM"]
+    "types": ["vite/client"],
+    "lib": ["ES2022", "DOM", "DOM.Iterable"]
   }
 }
