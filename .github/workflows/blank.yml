@@ -35,9 +35,9 @@ jobs:
         npm run build
       working-directory: ./
 
-    # - name: Deploy to server
-    #   run: |
-    #     scp -i private_key -o StrictHostKeyChecking=no -r ./dist/ username@server_ip:/temp/keel
-    #   env:
-    #     server_ip: ${{ secrets.ALAYA_SERVER_IP }}
-    #     username: ${{ secrets.ALAYA_SERVER_USER }}
+    - name: Deploy to server
+      run: |
+        scp -i private_key -o StrictHostKeyChecking=no -r ./dist/ username@server_ip:/temp/keel
+      env:
+        server_ip: ${{ secrets.ALAYA_SERVER_IP }}
+        username: ${{ secrets.ALAYA_SERVER_USER }}
