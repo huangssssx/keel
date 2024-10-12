@@ -37,7 +37,4 @@ jobs:
 
     - name: Deploy to server
       run: |
-        scp -i private_key -o StrictHostKeyChecking=no -r ./dist/ username@server_ip:/temp/keel
-      env:
-        server_ip: ${{ secrets.ALAYA_SERVER_IP }}
-        username: ${{ secrets.ALAYA_SERVER_USER }}
+        scp -i ${{ secrets.ALAYA_PRIVATE_KEY }} -o StrictHostKeyChecking=no -r ./dist/ ${{ secrets.ALAYA_SERVER_USER }}@${{ secrets.ALAYA_SERVER_IP }}:/temp/keel
