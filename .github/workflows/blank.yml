@@ -28,12 +28,12 @@ jobs:
     - name: List directory
       run: ls -la .
       
-    # - name: Compile the code
-    #   run: |
-    #     # Replace with your actual build commands
-    #     # cd ..
-    #     # npm install
-    #     # npm run build
+    - name: Compile the code
+      run: |
+        # Replace with your actual build commands
+        npm install
+        npm run build
+      working-directory: ./
 
     # - name: Deploy to server
     #   run: |
