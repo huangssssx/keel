@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "main" ]
 
 jobs:
   build_and_deploy:
@@ -19,20 +19,18 @@ jobs:
 
     - name: Set up SSH
       run: |
-        echo "$SSH_PRIVATE_KEY" > private_key
+        echo "${{ secrets.ALAYA_PRIVATE_KEY }}" > private_key
         chmod 600 private_key
-      env:
-        SSH_PRIVATE_KEY: ${{ secrets.ALAYA_PRIVATE_KEY }}
+
+    - name: List directory
+      run: ls -la .
 
     - name: Compile the code
       run: |
-        # Replace with your actual build commands
         npm install
         npm run build
+      working-directory: ./
 
     - name: Deploy to server
       run: |
-        scp -i private_key -o StrictHostKeyChecking=no -r ./dist/ username@server_ip:/temp/keel
-      env:
-        server_ip: ${{ secrets.ALAYA_SERVER_IP }}
-        username: ${{ secrets.ALAYA_SERVER_USER }}
+        scp -i private_key -o StrictHostKeyChecking=no -r ./dist/* ${{ secrets.ALAYA_SERVER_USER }}@${{ secrets.ALAYA_SERVER_IP }}:/etc/nginx/html/keel
