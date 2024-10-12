@@ -1,2 +1,5 @@
-# keel
-Keel is a modern framework tailored for small and medium projects. It uses pnpm for efficient disk use and fast installs, and Vite for quick startup and modern development. With Vue for intuitive development and Less for agile style management, Keel enhances project flexibility and efficiency. 🚀🎨✨
+# Keel - Vue 3 + TypeScript + Vite + Vue Router + Pinia
+
+This project is a starter template for building applications with Vue 3, TypeScript, Vite, Vue Router, and Pinia.
+
+## Project Setup
