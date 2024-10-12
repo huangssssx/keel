@@ -18,3 +18,26 @@ jobs:
         node-version: '20'
 
 
+    - name: Set up SSH
+      run: |
+        echo "$SSH_PRIVATE_KEY" > private_key
+        chmod 600 private_key
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.ALAYA_PRIVATE_KEY }}
+        
+    - name: List directory
+      run: ls -la ./keel/keel
+      
+    # - name: Compile the code
+    #   run: |
+    #     # Replace with your actual build commands
+    #     # cd ..
+    #     # npm install
+    #     # npm run build
+
+    # - name: Deploy to server
+    #   run: |
+    #     scp -i private_key -o StrictHostKeyChecking=no -r ./dist/ username@server_ip:/temp/keel
+    #   env:
+    #     server_ip: ${{ secrets.ALAYA_SERVER_IP }}
+    #     username: ${{ secrets.ALAYA_SERVER_USER }}
