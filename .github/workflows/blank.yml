@@ -26,7 +26,7 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.ALAYA_PRIVATE_KEY }}
         
     - name: List directory
-      run: ls -la ./keel
+      run: ls -la .
       
     # - name: Compile the code
     #   run: |
