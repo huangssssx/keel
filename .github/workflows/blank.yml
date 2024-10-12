@@ -30,9 +30,9 @@ jobs:
     - name: Compile the code
       run: |
         # Replace with your actual build commands
-        cd ..
-        npm install
-        npm run build
+        # cd ..
+        # npm install
+        # npm run build
 
     - name: Deploy to server
       run: |
