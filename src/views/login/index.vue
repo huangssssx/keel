@@ -3,36 +3,18 @@
     <el-card class="login-card">
       <div class="login-header">
         <img src="@/assets/cover.png" alt="Logo" class="logo" />
-        <h2>Welcome Back</h2>
+        <h2>Welcome Back Friend!</h2>
       </div>
-      <el-form
-        :model="loginForm"
-        @submit.prevent="handleLogin"
-        class="login-form"
-      >
+      <el-form :model="loginForm" @submit.prevent="handleLogin" class="login-form">
         <el-form-item>
-          <el-input
-            v-model="loginForm.username"
-            placeholder="Username"
-            :prefix-icon="User"
-          />
+          <el-input v-model="loginForm.username" placeholder="Username" :prefix-icon="User" />
         </el-form-item>
         <el-form-item>
-          <el-input
-            v-model="loginForm.password"
-            type="password"
-            placeholder="Password"
-            :prefix-icon="Lock"
-            show-password
-          />
+          <el-input v-model="loginForm.password" type="password" placeholder="Password" :prefix-icon="Lock"
+            show-password />
         </el-form-item>
         <el-form-item>
-          <el-button
-            type="primary"
-            native-type="submit"
-            :loading="loading"
-            class="login-button"
-          >
+          <el-button type="primary" native-type="submit" :loading="loading" class="login-button">
             {{ loading ? "Logging in..." : "Login" }}
           </el-button>
         </el-form-item>
