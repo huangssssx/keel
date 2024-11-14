@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@/views/home/index.vue'
 import Login from '@/views/login/index.vue'
+import HelloWorld from '@/components/HelloWorld.vue'
+import Tasks from '@/views/tasks/index.vue'
 import { useUserStore } from '@/stores/user.ts'
 
 const routes: Array<RouteRecordRaw> = [
@@ -14,6 +16,17 @@ const routes: Array<RouteRecordRaw> = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/hello',
+    name: 'Hello',
+    component: HelloWorld
+  },
+  {
+    path: '/tasks',
+    name: 'Tasks',
+    component: Tasks,
+    meta: { requiresAuth: false }
   }
 ]
 
