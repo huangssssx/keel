@@ -126,6 +126,63 @@ const handleLogin = async () => {
   margin-top: 20px;
 }
 
+:deep(.el-input) {
+          --el-input-hover-border-color: #4096ff;
+          --el-input-focus-border-color: #4096ff;
+          
+          .el-input__wrapper {
+            padding: 0 16px;
+            background-color: #ffffff;
+            border: 1px solid #e5e6eb;
+            border-radius: 8px;
+            box-shadow: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+            &:hover {
+              border-color: var(--el-input-hover-border-color);
+              background-color: #fff;
+            }
+
+            &.is-focus {
+              border-color: var(--el-input-focus-border-color);
+              background-color: #fff;
+              box-shadow: 0 0 0 2px rgba(64, 150, 255, 0.1);
+            }
+
+            .el-input__inner {
+              height: 42px;
+              color: #1a1a1a;
+              font-size: 14px;
+              background-color: #ffffff;
+              
+              &:-webkit-autofill,
+              &:-webkit-autofill:hover,
+              &:-webkit-autofill:focus {
+                -webkit-text-fill-color: #1a1a1a;
+                -webkit-box-shadow: 0 0 0px 1000px #ffffff inset;
+                transition: background-color 5000s ease-in-out 0s;
+              }
+              
+              &::placeholder {
+                color: #86909c;
+                transition: color 0.3s ease;
+              }
+            }
+
+            .el-input__prefix {
+              color: #86909c;
+              font-size: 16px;
+              transition: color 0.3s ease;
+            }
+          }
+
+          &:hover, &:focus-within {
+            .el-input__prefix {
+              color: var(--el-input-hover-border-color);
+            }
+          }
+        }
+
 :deep(.el-input__inner) {
   border-radius: 20px;
 }

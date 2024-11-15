@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia'
+import { http } from '@/utils/http'
 
 interface UserState {
   token: string | null
@@ -10,32 +11,42 @@ interface LoginPayload {
   password: string
 }
 
+interface LoginResponse {
+  token: string
+}
+
 export const useUserStore = defineStore('user', {
   state: (): UserState => ({
-    token: null,
-    username: null
+    token: localStorage.getItem('token'),
+    username: localStorage.getItem('username')
   }),
+  
   actions: {
     async login(payload: LoginPayload) {
-      // 这里应该是一个实际的 API 调用
-      // 为了演示，我们使用一个模拟的登录过程
-      return new Promise<void>((resolve, reject) => {
-        setTimeout(() => {
-          if (payload.username === 'admin' && payload.password === 'password') {
-            this.token = 'mock_token'
-            this.username = payload.username
-            resolve()
-          } else {
-            reject(new Error('Invalid credentials'))
-          }
-        }, 1000)
-      })
+      try {
+        const response = await http.post<LoginResponse>('/authenticate', payload)
+        
+        this.token = response.token
+        this.username = payload.username
+        
+        // 保存到本地存储
+        localStorage.setItem('token', response.token)
+        localStorage.setItem('username', payload.username)
+        
+      } catch (error) {
+        console.error('Login failed:', error)
+        throw error
+      }
     },
+    
     logout() {
       this.token = null
       this.username = null
+      localStorage.removeItem('token')
+      localStorage.removeItem('username')
     }
   },
+  
   getters: {
     isLoggedIn: (state) => !!state.token
   }
