@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
 import Home from '@/views/home/index.vue'
 import Login from '@/views/login/index.vue'
+import Upload from '@/views/upload/index.vue' 
 import { useUserStore } from '@/stores/user.ts'
 
 const routes: Array<RouteRecordRaw> = [
@@ -14,6 +15,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/login',
     name: 'Login',
     component: Login
+  },
+  {
+    path: '/upload',
+    name: 'Upload',
+    component: Upload
   }
 ]
 

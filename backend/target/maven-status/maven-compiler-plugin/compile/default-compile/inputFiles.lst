@@ -1,7 +1,10 @@
 C:\Users\huangssssx\workspace\keel\backend\src\main\java\com\huangssssx\keel\AuthController.java
 C:\Users\huangssssx\workspace\keel\backend\src\main\java\com\huangssssx\keel\AuthRequest.java
+C:\Users\huangssssx\workspace\keel\backend\src\main\java\com\huangssssx\keel\config\MinioConfig.java
+C:\Users\huangssssx\workspace\keel\backend\src\main\java\com\huangssssx\keel\controller\FileController.java
 C:\Users\huangssssx\workspace\keel\backend\src\main\java\com\huangssssx\keel\HelloWorldController.java
 C:\Users\huangssssx\workspace\keel\backend\src\main\java\com\huangssssx\keel\JwtUtil.java
 C:\Users\huangssssx\workspace\keel\backend\src\main\java\com\huangssssx\keel\KeelApplication.java
 C:\Users\huangssssx\workspace\keel\backend\src\main\java\com\huangssssx\keel\ProtectedController.java
 C:\Users\huangssssx\workspace\keel\backend\src\main\java\com\huangssssx\keel\SecurityConfig.java
+C:\Users\huangssssx\workspace\keel\backend\src\main\java\com\huangssssx\keel\service\MinioService.java
