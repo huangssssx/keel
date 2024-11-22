@@ -22,7 +22,7 @@ public class SecurityConfig {
             .cors(cors -> cors.configurationSource(corsConfigurationSource()))
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/authenticate").permitAll()
+                .requestMatchers("/api/authenticate").permitAll()
                 .requestMatchers("/api/files/**").permitAll()
                 .requestMatchers("/error").permitAll()
                 .requestMatchers("/**").permitAll()
