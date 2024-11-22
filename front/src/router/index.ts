@@ -1,55 +1,49 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router'
-import GlobalLayout from '@/views/layout/GlobalLayout.vue'
-import Home from '@/views/home/index.vue'
-import Login from '@/views/login/index.vue'
-import Upload from '@/views/upload/index.vue'
-import Authority from '@/views/authority/index.vue'
-import { useUserStore } from '@/stores/user.ts'
-
-const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    component: GlobalLayout,
-    children: [
-      {
-        path: '',  // 默认子路由
-        name: 'Home',
-        component: Home,
-        meta: { requiresAuth: true }
-      },
-      {
-        path: 'upload',
-        name: 'Upload',
-        component: Upload,
-        meta: { requiresAuth: true }
-      },
-      {
-        path: 'authority',
-        name: 'Authority',
-        component: Authority,
-        meta: { requiresAuth: true }
-      }
-    ]
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  }
-]
+import { createRouter, createWebHistory } from 'vue-router'
+import { House, Upload, Setting } from '@element-plus/icons-vue'
 
 const router = createRouter({
   history: createWebHistory(),
-  routes
-})
-
-router.beforeEach((to, from, next) => {
-  const userStore = useUserStore()
-  if (to.matched.some(record => record.meta.requiresAuth) && !userStore.isLoggedIn) {
-    next('/login')
-  } else {
-    next()
-  }
+  routes: [
+    {
+      path: '/',
+      component: () => import('@/views/layout/GlobalLayout.vue'),
+      children: [
+        {
+          path: '/',
+          name: '首页',
+          component: () => import('@/views/home/index.vue'),
+          meta: {
+            title: '首页',
+            icon: House
+          }
+        },
+        {
+          path: '/upload',
+          name: '文件上传',
+          component: () => import('@/views/upload/index.vue'),
+          meta: {
+            title: '文件上传',
+            icon: Upload
+          }
+        },
+        {
+          path: '/authority',
+          name: '权限管理',
+          component: () => import('@/views/authority/index.vue'),
+          meta: {
+            title: '权限管理',
+            icon: Setting
+          }
+        }
+      ]
+    },
+    // 其他路由配置...
+    {
+      path: '/login',
+      name: 'Login',
+      component: () => import('@/views/login/index.vue')
+    }
+  ]
 })
 
 export default router

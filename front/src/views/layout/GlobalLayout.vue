@@ -32,27 +32,7 @@
 
     <!-- 左侧菜单 -->
     <aside class="sidebar" :class="{ 'is-collapse': isCollapse }">
-      <el-menu
-        :default-active="route.path"
-        class="el-menu-vertical"
-        :collapse="isCollapse"
-        :router="true"
-      >
-        <el-menu-item index="/">
-          <el-icon><House /></el-icon>
-          <template #title>首页</template>
-        </el-menu-item>
-        
-        <el-menu-item index="/upload">
-          <el-icon><Upload /></el-icon>
-          <template #title>文件上传</template>
-        </el-menu-item>
-
-        <el-menu-item index="/authority">
-          <el-icon><Setting /></el-icon>
-          <template #title>权限管理</template>
-        </el-menu-item>
-      </el-menu>
+      <Menu :is-collapse="isCollapse" />
     </aside>
 
     <!-- 主要内容区域 -->
@@ -70,7 +50,8 @@
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useUserStore } from '@/stores/user'
-import { House, Upload, Setting, Fold, Expand, UserFilled } from '@element-plus/icons-vue'
+import { Fold, Expand, UserFilled } from '@element-plus/icons-vue'
+import Menu from '@/components/Menu.vue'
 
 const route = useRoute()
 const router = useRouter()

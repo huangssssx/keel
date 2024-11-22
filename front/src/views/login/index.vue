@@ -55,8 +55,8 @@ const router = useRouter();
 const userStore = useUserStore();
 
 const loginForm = reactive({
-  username: "",
-  password: "",
+  username: "admin",
+  password: "admin",
 });
 
 const loading = ref(false);
