@@ -1,7 +1,7 @@
 <template>
-    <el-form ref="searchFormRef" :model="searchForm" inline>
+    <el-form ref="searchFormRef" :model="searchForm" inline @submit.prevent>
         <el-form-item label="用户名" prop="username">
-            <el-input v-model="searchForm.username" placeholder="请输入用户名" />
+            <el-input v-model="searchForm.username" placeholder="请输入用户名" @keyup.enter="search"/>
         </el-form-item>
 
         <el-form-item>
