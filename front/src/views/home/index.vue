@@ -29,21 +29,7 @@ const handleLogout = () => {
 
 const { x, y } = useMousePosition();
 
-const obj = {
-  id:"obj",
-  get value(){
-    return this.id;
-  }
-}
-const p = proxyObject(obj);
 
-const obj2 = {
-  id:"obj2"
-};
-
-Object.setPrototypeOf(obj2,p)
-
-console.log(obj2.value);
 </script>
 
 <style scoped>

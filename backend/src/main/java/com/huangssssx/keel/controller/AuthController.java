@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.huangssssx.keel.model.LoginRequest;
+import com.huangssssx.keel.repository.dao.SysUserRepository;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,10 +31,16 @@ public class AuthController {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @Autowired
+    private SysUserRepository sysUserRepository;
+
     @PostMapping("/authenticate")
     public ResponseEntity<?> authenticate(@RequestBody LoginRequest loginRequest) {
         logger.info("收到登录请求: {}", loginRequest.getUsername());
-        
+
+        logger.info("从数据库查询用户：{}", sysUserRepository.findAll());
+
+
         try {
             logger.debug("尝试认证用户: {}", loginRequest.getUsername());
             
