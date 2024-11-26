@@ -1,4 +1,4 @@
-package com.huangssssx.keel;
+package com.huangssssx.keel.model;
 
 public class AuthRequest {
     private String username;
@@ -19,4 +19,4 @@ public class AuthRequest {
     public void setPassword(String password) {
         this.password = password;
     }
-}
+} 

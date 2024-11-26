@@ -1,6 +1,6 @@
 package com.huangssssx.keel.controller;
 
-import com.huangssssx.keel.JwtUtil;
+import com.huangssssx.keel.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.huangssssx.keel.model.LoginRequest;
+import com.huangssssx.keel.model.AuthRequest;
 import com.huangssssx.keel.repository.dao.SysUserRepository;
 
 import java.util.HashMap;
@@ -35,13 +35,16 @@ public class AuthController {
     private SysUserRepository sysUserRepository;
 
     @PostMapping("/authenticate")
-    public ResponseEntity<?> authenticate(@RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticate(@RequestBody AuthRequest loginRequest) {
         logger.info("收到登录请求: {}", loginRequest.getUsername());
 
         logger.info("从数据库查询用户：{}", sysUserRepository.findAll());
 
 
         try {
+            logger.debug("接收到的用户名: {}", loginRequest.getUsername());
+            logger.debug("接收到的密码长度: {}", loginRequest.getPassword().length());
+            
             logger.debug("尝试认证用户: {}", loginRequest.getUsername());
             
             Authentication authentication = authenticationManager.authenticate(
@@ -62,7 +65,7 @@ public class AuthController {
             return ResponseEntity.ok(response);
             
         } catch (BadCredentialsException e) {
-            logger.error("认证失败: 用户名或密码错误", e);
+            logger.error("认证失败: 用户名或密码错误 - 用户名: {}", loginRequest.getUsername());
             return ResponseEntity.status(401).body(Map.of("message", "用户名或密码错误"));
         } catch (Exception e) {
             logger.error("认证过程发生错误: ", e);
