@@ -17,7 +17,6 @@
 import { useRouter } from "vue-router";
 import { useUserStore } from "@/stores/user";
 import { useMousePosition } from "@/composeable/mouse";
-import { proxyObject } from "@/composeable/proxyCompose";
 
 const router = useRouter();
 const userStore = useUserStore();
