@@ -3,7 +3,8 @@ import { http } from '@/utils/http'
 
 interface UserState {
   token: string | null
-  username: string | null
+  username: string | null,
+  permission:string[]
 }
 
 interface LoginPayload {
@@ -12,13 +13,15 @@ interface LoginPayload {
 }
 
 interface LoginResponse {
-  token: string
+  token: string,
+  permission:string
 }
 
 export const useUserStore = defineStore('user', {
   state: (): UserState => ({
     token: localStorage.getItem('token'),
-    username: localStorage.getItem('username')
+    username: localStorage.getItem('username'),
+    permission:JSON.parse(localStorage.getItem("permission")||"[]")
   }),
   
   actions: {
@@ -32,6 +35,7 @@ export const useUserStore = defineStore('user', {
         // 保存到本地存储
         localStorage.setItem('token', response.token)
         localStorage.setItem('username', payload.username)
+        localStorage.setItem("permission",response.permission)
         
       } catch (error) {
         console.error('Login failed:', error)

@@ -41,7 +41,7 @@ class HttpRequest {
         if (error.response) {
           switch (error.response.status) {
             case 401:
-              ElMessage.error('登录已过期，请重新登录')
+              // ElMessage.error('登录已过期，请重新登录')
               localStorage.removeItem('token')
               localStorage.removeItem('username')
               router.push('/login')
