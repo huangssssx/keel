@@ -2,6 +2,9 @@ package com.huangssssx.keel.repository.entity;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -49,6 +52,7 @@ public class SysPermission {
     @Column(name = "update_time")
     private LocalDateTime updateTime;
 
+    @JsonBackReference
     @ManyToMany(mappedBy = "permissions")
     @ToString.Exclude
     @EqualsAndHashCode.Exclude

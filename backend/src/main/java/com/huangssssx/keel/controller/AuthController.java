@@ -15,9 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.huangssssx.keel.model.AuthRequest;
 import com.huangssssx.keel.repository.dao.SysUserRepository;
+import com.huangssssx.keel.repository.entity.SysUser;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
@@ -62,6 +64,9 @@ public class AuthController {
             Map<String, Object> response = new HashMap<>();
             response.put("token", jwt);
             response.put("username", loginRequest.getUsername());
+            Optional<SysUser> optionalUser = sysUserRepository.findByUsername(loginRequest.getUsername());
+            SysUser user = optionalUser.orElse(null);
+            response.put("userInfo",user);
             return ResponseEntity.ok(response);
             
         } catch (BadCredentialsException e) {
