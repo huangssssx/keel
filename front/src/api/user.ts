@@ -15,16 +15,19 @@ export interface UserInfo {
 // 分别导出各个方法
 export const login = (data: LoginParams) => {
   return request({
-    url: '/auth/login',
+    url: '/auth/authenticate',
     method: 'post',
     data
   })
 }
 
-export const getUserInfo = () => {
+export const getUserInfo = (token:string) => {
   return request({
-    url: '/user/info',
-    method: 'get'
+    url: '/auth/getUserInfo',
+    method: 'post',
+    data:{
+      token
+    }
   })
 }
 

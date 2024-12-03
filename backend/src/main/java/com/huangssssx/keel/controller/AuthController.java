@@ -13,7 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.huangssssx.keel.model.ApiResponse;
 import com.huangssssx.keel.model.AuthRequest;
+import com.huangssssx.keel.model.GetUserInfoRequest;
 import com.huangssssx.keel.repository.dao.SysUserRepository;
 import com.huangssssx.keel.repository.entity.SysUser;
 
@@ -22,7 +25,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/auth")
 public class AuthController {
     
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
@@ -67,17 +70,26 @@ public class AuthController {
             Optional<SysUser> optionalUser = sysUserRepository.findByUsername(loginRequest.getUsername());
             SysUser user = optionalUser.orElse(null);
             response.put("userInfo",user);
-            return ResponseEntity.ok(response);
+            return ResponseEntity.ok(ApiResponse.success(response));
             
         } catch (BadCredentialsException e) {
             logger.error("认证失败: 用户名或密码错误 - 用户名: {}", loginRequest.getUsername());
-            return ResponseEntity.status(401).body(Map.of("message", "用户名或密码错误"));
+            return ResponseEntity.status(401).body(ApiResponse.error(401, "用户名或密码错误"));
         } catch (Exception e) {
             logger.error("认证过程发生错误: ", e);
-            return ResponseEntity.status(500).body(Map.of(
-                "message", "认证过程发生错误",
-                "error", e.getMessage()
-            ));
+            return ResponseEntity.status(500).body(ApiResponse.error(500, "认证过程发生错误"));
+
         }
+    }
+
+    @PostMapping("/getUserInfo")
+    public ResponseEntity<?> getUserInfo(@RequestBody GetUserInfoRequest userInfoRequest ){
+       String username = jwtUtil.extractUsername(userInfoRequest.getToken());
+       Optional<SysUser> optionalUser = sysUserRepository.findByUsername(username);
+       SysUser user = optionalUser.orElse(null);
+
+       Map<String, Object> response = new HashMap<>();
+       response.put("userInfo",user);
+       return ResponseEntity.ok(ApiResponse.success(response));
     }
 } 
