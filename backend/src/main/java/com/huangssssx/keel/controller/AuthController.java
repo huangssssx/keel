@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -83,13 +84,27 @@ public class AuthController {
     }
 
     @PostMapping("/getUserInfo")
-    public ResponseEntity<?> getUserInfo(@RequestBody GetUserInfoRequest userInfoRequest ){
-       String username = jwtUtil.extractUsername(userInfoRequest.getToken());
-       Optional<SysUser> optionalUser = sysUserRepository.findByUsername(username);
-       SysUser user = optionalUser.orElse(null);
+    public ResponseEntity<?> getUserInfo(@RequestHeader("Authorization") String authHeader) {
+        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+            return ResponseEntity.badRequest().body(ApiResponse.error(400, "无效的Authorization header"));
+        }
+        
+        try {
+            // 从 "Bearer " 后面提取token
+            String token = authHeader.substring(7);
+            String username = jwtUtil.extractUsername(token);
+            Optional<SysUser> optionalUser = sysUserRepository.findByUsername(username);
+            SysUser user = optionalUser.orElse(null);
+            
+            if (user == null) {
+                return ResponseEntity.status(404).body(ApiResponse.error(404, "用户不存在"));
+            }
 
-       Map<String, Object> response = new HashMap<>();
-       response.put("userInfo",user);
-       return ResponseEntity.ok(ApiResponse.success(response));
+            Map<String, Object> response = new HashMap<>();
+            response.put("userInfo", user);
+            return ResponseEntity.ok(ApiResponse.success(response));
+        } catch (Exception e) {
+            return ResponseEntity.status(401).body(ApiResponse.error(401, "无效的token"));
+        }
     }
 } 
