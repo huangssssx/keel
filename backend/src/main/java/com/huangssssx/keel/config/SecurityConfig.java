@@ -33,7 +33,7 @@ import java.util.Set;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
+@EnableMethodSecurity(prePostEnabled = true)  // 添加这个注解
 public class SecurityConfig {
     
     private static final Logger logger = LoggerFactory.getLogger(SecurityConfig.class);
@@ -49,14 +49,14 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/authenticate").permitAll()
                 .requestMatchers("/api/auth/getUserInfo").permitAll()
+                .requestMatchers("/api/role/fetchPage").permitAll()  // 明确允许这个端点
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )            
-            // 添加JWT过滤器（用于判断每个请求的token是否有效）
             .addFilterBefore(jwtAuthenticationFilter, 
-                    UsernamePasswordAuthenticationFilter.class);;
+                    UsernamePasswordAuthenticationFilter.class);
         
         return http.build();
     }
@@ -126,6 +126,6 @@ public class SecurityConfig {
 //
 //            // 验证密码
 //            boolean matches = encoder.matches(rawPassword, encodedPassword);
-//            System.out.println("密码匹配: " + matches);
+//            System.out.println("密码���配: " + matches);
 //        }
 }

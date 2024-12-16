@@ -6,11 +6,17 @@ export interface RoleParams {
   permissions: string[]
 }
 
+export interface pageParams {
+  page:number,
+  size:number
+}
+
 // 分别导出各个方法
-export const getRoleList = () => {
+export const fetchPage = (params:pageParams) => {
   return request({
-    url: '/role/list',
-    method: 'get'
+    url: '/role/fetchPage',
+    method: 'get',
+    params
   })
 }
 

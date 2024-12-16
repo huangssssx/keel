@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 
 import com.huangssssx.keel.model.ApiResponse;
 import com.huangssssx.keel.model.AuthRequest;
-import com.huangssssx.keel.model.GetUserInfoRequest;
 import com.huangssssx.keel.repository.dao.SysUserRepository;
 import com.huangssssx.keel.repository.entity.SysUser;
 
