@@ -50,6 +50,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/authenticate").permitAll()
                 .requestMatchers("/api/auth/getUserInfo").permitAll()
                 .requestMatchers("/api/role/fetchPage").permitAll()  // 明确允许这个端点
+                .requestMatchers("/api/user/**").permitAll()  // 明确允许这个端点
                 .anyRequest().authenticated()
             )
             .sessionManagement(session -> session
@@ -108,6 +109,7 @@ public class SecurityConfig {
 
     @Bean
     public AuthenticationManager authenticationManager() {
+//        testEncoder();
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
@@ -115,7 +117,7 @@ public class SecurityConfig {
         return new ProviderManager(authProvider);
     }
 
-//        // 可以直接在这里添加一个测试方法
+        // 可以直接在这里添加一个测试方法
 //        @PostConstruct
 //        public void testEncoder() {
 //            String rawPassword = "huang12563";
@@ -128,4 +130,5 @@ public class SecurityConfig {
 //            boolean matches = encoder.matches(rawPassword, encodedPassword);
 //            System.out.println("密码���配: " + matches);
 //        }
+
 }
