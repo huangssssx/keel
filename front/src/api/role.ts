@@ -34,4 +34,4 @@ export const updateRole = (id: number, data: Partial<RoleParams>) => {
     method: 'put',
     data
   })
-} 
+}

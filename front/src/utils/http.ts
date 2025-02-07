@@ -87,4 +87,4 @@ class HttpRequest {
   }
 }
 
-export const http = new HttpRequest() 
+export const http = new HttpRequest()

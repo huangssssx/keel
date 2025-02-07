@@ -21,6 +21,14 @@ export const login = (data: LoginParams) => {
   })
 }
 
+export const getUserPage = (params:any) => {
+  return request({
+    url: '/user/fetchUserPage',
+    method: 'get',
+    params
+  })
+}
+
 export const getUserInfo = (token:string) => {
   return request({
     url: '/auth/getUserInfo',
@@ -37,4 +45,4 @@ export const updateUser = (data: Partial<UserInfo>) => {
     method: 'put',
     data
   })
-} 
+}

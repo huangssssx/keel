@@ -1,10 +1,8 @@
-// API 接口的基础配置和公共方法
-import axios from 'axios'
-import type { AxiosInstance, AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 
 // 创建 axios 实例
-const service: AxiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_API_BASE_URL, // 从环境变量获取基础URL
+const request = axios.create({
+  baseURL: import.meta.env.VUE_APP_API_BASE_URL || '/api', // API 的基础URL
   timeout: 15000, // 请求超时时间
   headers: {
     'Content-Type': 'application/json'
@@ -12,9 +10,9 @@ const service: AxiosInstance = axios.create({
 })
 
 // 请求拦截器
-service.interceptors.request.use(
+request.interceptors.request.use(
   (config) => {
-    // 在发送请求之前做些什么，比如添加token
+    // 从 localStorage 获取 token
     const token = localStorage.getItem('token')
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`
@@ -27,20 +25,33 @@ service.interceptors.request.use(
 )
 
 // 响应拦截器
-service.interceptors.response.use(
+request.interceptors.response.use(
   (response) => {
-    // 对响应数据做点什么
-    const res = response.data
-    if (res.code !== 200) {
-      // 处理错误情况
-      return Promise.reject(new Error(res.message || '错误'))
-    }
-    return res
+    return response.data
   },
   (error) => {
-    // 处理错误情况
+    // 处理错误响应
+    if (error.response) {
+      switch (error.response.status) {
+        case 401:
+          // 未授权，清除 token 并跳转到登录页
+          localStorage.removeItem('token')
+          window.location.href = '/login'
+          break
+        case 403:
+          // 权限不足
+          console.error('没有权限访问该资源')
+          break
+        case 500:
+          // 服务器错误
+          console.error('服务器错误')
+          break
+        default:
+          console.error('请求失败:', error.message)
+      }
+    }
     return Promise.reject(error)
   }
 )
 
-export default service 
+export default request

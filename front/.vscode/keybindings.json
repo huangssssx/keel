@@ -1,0 +1,50 @@
+{
+  "key": "ctrl+s",
+  "command": "workbench.action.files.save",
+  "when": "editorTextFocus"
+},
+{
+  "key": "ctrl+c",
+  "command": "editor.action.clipboardCopyAction",
+  "when": "editorTextFocus"
+},
+{
+  "key": "ctrl+v",
+  "command": "editor.action.clipboardPasteAction",
+  "when": "editorTextFocus && !editorReadonly"
+},
+{
+  "key": "ctrl+x",
+  "command": "editor.action.clipboardCutAction",
+  "when": "editorTextFocus && !editorReadonly"
+},
+{
+  "key": "ctrl+z",
+  "command": "undo",
+  "when": "editorTextFocus && !editorReadonly"
+},
+{
+  "key": "ctrl+y",
+  "command": "redo",
+  "when": "editorTextFocus && !editorReadonly"
+},
+{
+  "key": "ctrl+f",
+  "command": "actions.find",
+  "when": "editorTextFocus"
+},
+{
+  "key": "ctrl+h",
+  "command": "editor.action.startFindReplaceAction",
+  "when": "editorTextFocus"
+},
+{
+  "key": "ctrl+/",
+  "command": "editor.action.commentLine",
+  "when": "editorTextFocus"
+},
+{
+  "key": "alt+l",
+  "command": "expandLineSelection",
+  "when": "editorTextFocus"
+}

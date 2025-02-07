@@ -2,42 +2,43 @@
     <div class="search-container">
         <el-form ref="searchFormRef" :model="searchForm" inline @submit.prevent class="search-form">
             <el-form-item label="用户名" prop="username">
-                <el-input 
-                    v-model="searchForm.username" 
-                    placeholder="请输入用户名" 
-                    @keyup.enter="search"
-                    :prefix-icon="Search"
-                    class="search-input"
-                />
+                <el-input v-model="searchForm.username" placeholder="请输入用户名" @keyup.enter="search" :prefix-icon="Search"
+                    class="search-input" />
             </el-form-item>
 
             <el-form-item class="search-buttons">
-                <el-button 
-                    type="default" 
-                    @click="resetForm"
-                    :icon="Refresh"
-                    class="reset-button"
-                >重置</el-button>
-                <el-button 
-                    type="primary" 
-                    @click="search"
-                    :icon="Search"
-                    class="search-button"
-                >搜索</el-button>
+                <el-button type="default" @click="resetForm" :icon="Refresh" class="reset-button">重置</el-button>
+                <el-button type="primary" @click="search" :icon="Search" class="search-button">搜索</el-button>
             </el-form-item>
         </el-form>
     </div>
     <el-table :data="tableData" style="width: 100%">
-      <el-table-column prop="date" label="Date" width="180" />
-      <el-table-column prop="name" label="Name" width="180" />
-      <el-table-column prop="address" label="Address" />
+
+        <el-table-column prop="username" label="用户名" width="180" />
+        <el-table-column prop="nickname" label="别名" />
+        <el-table-column prop="email" label="邮箱" width="180">
+            <template #default="scope">
+                {{ scope.row.email || '-' }}
+            </template>
+        </el-table-column>
+        <el-table-column prop="phone" label="电话" width="180">
+            <template #default="scope">
+                {{ scope.row.phone || '-' }}
+            </template>
+        </el-table-column>
+        <el-table-column prop="email" label="角色" width="180">
+            <template #default="scope">
+                <el-tag v-for="role in scope.row.roles" :key="role.id" class="mx-1" size="small">
+                    {{ role.roleName }}
+                </el-tag>
+            </template>
+        </el-table-column>
     </el-table>
 </template>
 
 <script lang="ts" setup>
 import { ref, onMounted, watchEffect } from 'vue'
-import { getUserInfo } from '@/api/user'
-import type { UserInfo } from '@/api/user'
+import { getUserPage } from '@/api/user'
 import { FormInstance } from 'element-plus'
 import { debouncedSearch } from '@/composeable/search'
 import { Search, Refresh } from '@element-plus/icons-vue'
@@ -48,48 +49,57 @@ const tableData = ref([])
 // 获取用户信息
 const userInfo = ref<UserInfo>()
 
-const fetchUserInfo = async () => {
-  try {
-    const res = await getUserInfo()
-    userInfo.value = res.data
-  } catch (error) {
-    console.error('获取用户信息失败:', error)
-  }
-}
+// const fetchUserInfo = async () => {
+//     try {
+//         const res = await getUserInfo({})
+//         userInfo.value = res.data
+//         debugger
+//     } catch (error) {
+//         console.error('获取用户信息失败:', error)
+//     }
+// }
+
+
+
 
 const searchFormRef = ref<FormInstance | null>(null)
 
 
 // 重置表单
 const resetForm = () => {
-  if (searchFormRef.value) {
-    searchFormRef.value.resetFields() // 确保字段被正确重置
-  }
+    if (searchFormRef.value) {
+        searchFormRef.value.resetFields() // 确保字段被正确重置
+    }
 }
 
 // 搜索功能
 const searchForm = ref({
-  username: '' // 初始值为空字符串
+    username: '', // 初始值为空字符串
+    page: 1,
+    pageSize: 10
 })
 
-const searchWordDebounced = debouncedSearch((username:string)=>{
+const searchWordDebounced = debouncedSearch(async (username: string, page: number, pageSize: number) => {
     //搜索关键字
-    console.log(username);
+    const res = await getUserPage({ username, page, pageSize });
+    if (res.status === 200) {
+        tableData.value = res.data.content;
+    }
 });
 
 
-watchEffect(()=>{
+watchEffect(() => {
     // console.log(searchForm.value.username);
-    searchWordDebounced(searchForm.value.username);
+    searchWordDebounced(searchForm.value.username, searchForm.value.page, searchForm.value.pageSize);
 })
 
 
 const search = () => {
-  console.log(searchForm.value)
+    console.log(searchForm.value)
 }
 
 onMounted(() => {
-  fetchUserInfo()
+
 })
 </script>
 

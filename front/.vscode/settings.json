@@ -1,0 +1,35 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  },
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "files.eol": "\n",
+  "files.trimTrailingWhitespace": true,
+  "volar.completion.preferredTagNameCase": "pascal",
+  "volar.completion.preferredAttrNameCase": "kebab",
+  "volar.format.defaultFormatter": {
+    "html": "prettier",
+    "css": "prettier",
+    "typescript": "prettier"
+  },
+  // Windows 风格的快捷键设置
+  "keyboard.dispatch": "keyCode",
+  // 启用以下快捷键行为
+  "editor.shortcuts": {
+    "save": true,              // Ctrl+S
+    "undo": true,              // Ctrl+Z
+    "redo": true,              // Ctrl+Y
+    "cut": true,               // Ctrl+X
+    "copy": true,              // Ctrl+C
+    "paste": true,             // Ctrl+V
+    "find": true,              // Ctrl+F
+    "replace": true,           // Ctrl+H
+    "toggleLineComment": true   // Ctrl+/
+  }
+}
