@@ -5,7 +5,7 @@ export default {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "var(--el-color-primary)",
+          DEFAULT: "#409EFF", // Element Plus 的主色调
           "light-3": "var(--el-color-primary-light-3)",
           "light-5": "var(--el-color-primary-light-5)",
           "light-7": "var(--el-color-primary-light-7)",
